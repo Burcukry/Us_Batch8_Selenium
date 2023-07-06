@@ -8,12 +8,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BaseDriver {
-    public static void getDriver(){
+  public static WebDriver driver;
+   static {
 
-        Logger logger= Logger.getLogger("");
+        Logger logger= Logger.getLogger(""); // Shows only severe problems on the consol
         logger.setLevel(Level.SEVERE);
 
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
+
+        driver.manage().window().maximize(); // fits the browser to the screen
 
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
         // Waits for 15 secs for page to be loaded.
@@ -24,7 +27,10 @@ public class BaseDriver {
         // waits until all elements on a webpage are visible on our browser.
         // if it is not done in 15 secs it throws an exception
 
+    }
 
-
+    public static void waitAndQuit(){
+       MyMethods.myWait(4);
+       driver.quit();
     }
 }

@@ -20,10 +20,10 @@ public class _05_FindByTagName {
 //        }
 
         driver.get("https://form.jotform.com/221934510376353");
-       List<WebElement> labels =  driver.findElements(By.tagName("label"));
-       for (WebElement e: labels){
-           System.out.println(e.getText());
-       }
+        List<WebElement> labels = driver.findElements(By.tagName("label"));
+        for (WebElement e : labels) {
+            System.out.println(e.getText());
+        }
 
         MyMethods.myWait(3);
         driver.quit();
