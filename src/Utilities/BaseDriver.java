@@ -2,16 +2,19 @@ package Utilities;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BaseDriver {
-  public static WebDriver driver;
-   static {
+    public static WebDriver driver;
 
-        Logger logger= Logger.getLogger(""); // Shows only severe problems on the consol
+    static {
+        closePreviousDrivers();
+        Logger logger = Logger.getLogger(""); // Shows only severe problems on the consol
         logger.setLevel(Level.SEVERE);
 
         driver = new ChromeDriver();
@@ -29,8 +32,16 @@ public class BaseDriver {
 
     }
 
-    public static void waitAndQuit(){
-       MyMethods.myWait(4);
-       driver.quit();
+    public static void waitAndQuit() {
+        MyMethods.myWait(4);
+        driver.quit();
+    }
+
+    public static void closePreviousDrivers() {
+        try {
+            Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
